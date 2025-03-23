@@ -7,28 +7,127 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600&display=swap">
+    <meta name="description" content="Vahini - Safe Navigation App for Hyderabad. Find the safest routes and avoid dangerous areas.">
+    <meta name="theme-color" content="#007AFF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
+    <!-- Auth overlay -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <i class="fas fa-route"></i>
+                <h1>Vahini</h1>
+            </div>
+            <div class="auth-tabs">
+                <button id="login-tab" class="auth-tab active">Login</button>
+                <button id="register-tab" class="auth-tab">Register</button>
+            </div>
+            
+            <!-- Login form -->
+            <form id="login-form" class="auth-form">
+                <div class="auth-input-group">
+                    <label for="login-email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label for="login-password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                </div>
+                <button type="submit" class="auth-button primary-button">Login</button>
+                <button type="button" id="demo-login" class="text-button">Continue with Demo Account</button>
+            </form>
+            
+            <!-- Register form (initially hidden) -->
+            <form id="register-form" class="auth-form" style="display: none;">
+                <div class="auth-input-group">
+                    <label for="register-name">Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="register-name" placeholder="Full Name" required>
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label for="register-email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="register-email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label for="register-phone">Phone Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="register-phone" placeholder="Phone Number" required>
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label for="register-password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-password" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-confirm-password" placeholder="Confirm Password" required>
+                    </div>
+                </div>
+                <div class="auth-checkbox">
+                    <input type="checkbox" id="register-terms" required>
+                    <label for="register-terms">I agree to the Terms & Conditions</label>
+                </div>
+                <button type="submit" class="auth-button primary-button">Register</button>
+            </form>
+        </div>
+    </div>
+
     <div class="app-container">
-        <!-- Header -->
+        <!-- Header - macOS style -->
         <header>
             <div class="logo">
                 <i class="fas fa-route"></i>
                 <h1>Vahini</h1>
             </div>
             <div class="header-controls">
+                <div class="user-profile">
+                    <button id="user-profile-btn" class="profile-button">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="username-display">User</span>
+                    </button>
+                    <div id="user-dropdown" class="user-dropdown">
+                        <a href="#" id="user-profile-link"><i class="fas fa-id-card"></i> My Profile</a>
+                        <a href="#" id="user-rewards-link"><i class="fas fa-award"></i> My Rewards</a>
+                        <a href="#" id="user-settings-link"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" id="user-logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+                <button id="reportIncidentBtn" class="report-button">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Report</span>
+                </button>
                 <button id="panicButton" class="panic-button">
                     <i class="fas fa-exclamation-triangle"></i> PANIC
                 </button>
             </div>
         </header>
 
-        <!-- Main content -->
+        <!-- Main content - macOS style -->
         <main>
             <!-- Map container -->
-            <div id="map"></div>
+            <div id="map" class="mac-map"></div>
 
-            <!-- Control panels -->
+            <!-- Control panels - macOS style -->
             <div class="control-panel search-panel">
                 <h2>Navigation</h2>
                 <div class="input-group">
@@ -48,8 +147,12 @@
                         <input type="text" id="destination" placeholder="Enter destination">
                     </div>
                 </div>
-                <button id="routeButton" class="primary-button">Calculate Route</button>
-                <button id="optimizeButton" class="secondary-button" disabled>Optimize for Safety</button>
+                <button id="routeButton" class="primary-button mac-button">
+                    <i class="fas fa-route"></i> Calculate Route
+                </button>
+                <button id="optimizeButton" class="secondary-button mac-button" disabled>
+                    <i class="fas fa-shield-alt"></i> Optimize for Safety
+                </button>
                 <button id="resetButton" class="text-button">Reset</button>
             </div>
 
@@ -58,7 +161,7 @@
                 <div class="safety-options">
                     <div class="safety-option">
                         <input type="checkbox" id="avoidLonely" class="safety-checkbox">
-                        <label for="avoidLonely">
+                        <label for="avoidLonely" class="mac-checkbox-label">
                             <span class="checkbox-custom"></span>
                             <div class="safety-label">
                                 <i class="fas fa-moon icon-lonely"></i>
@@ -68,7 +171,7 @@
                     </div>
                     <div class="safety-option">
                         <input type="checkbox" id="avoidCrime" class="safety-checkbox">
-                        <label for="avoidCrime">
+                        <label for="avoidCrime" class="mac-checkbox-label">
                             <span class="checkbox-custom"></span>
                             <div class="safety-label">
                                 <i class="fas fa-exclamation-circle icon-crime"></i>
@@ -78,7 +181,7 @@
                     </div>
                     <div class="safety-option">
                         <input type="checkbox" id="avoidHospital" class="safety-checkbox">
-                        <label for="avoidHospital">
+                        <label for="avoidHospital" class="mac-checkbox-label">
                             <span class="checkbox-custom"></span>
                             <div class="safety-label">
                                 <i class="fas fa-hospital icon-hospital"></i>
@@ -88,7 +191,7 @@
                     </div>
                     <div class="safety-option">
                         <input type="checkbox" id="avoidAccident" class="safety-checkbox">
-                        <label for="avoidAccident">
+                        <label for="avoidAccident" class="mac-checkbox-label">
                             <span class="checkbox-custom"></span>
                             <div class="safety-label">
                                 <i class="fas fa-car-crash icon-accident"></i>
@@ -97,47 +200,31 @@
                         </label>
                     </div>
                 </div>
+                
+                <div class="safety-info">
+                    <h3>Safety Information</h3>
+                    <div class="safety-metrics">
+                        <div class="safety-metric">
+                            <div class="metric-label">Current Area Safety</div>
+                            <div class="metric-value" id="areaSafety">--</div>
+                        </div>
+                        <div class="safety-metric">
+                            <div class="metric-label">Route Safety Score</div>
+                            <div class="metric-value" id="routeSafety">--</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 
-        <!-- Legend -->
-        <div class="legend">
-            <h3>Legend</h3>
-            <div class="legend-items">
-                <div class="legend-item">
-                    <span class="legend-color lonely-color"></span>
-                    <span>Lonely Areas</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-color crime-color"></span>
-                    <span>High Crime Zones</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-color hospital-color"></span>
-                    <span>No Hospital Zones</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-color accident-color"></span>
-                    <span>Accident-Prone Areas</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-line normal-route"></span>
-                    <span>Normal Route</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-line safe-route"></span>
-                    <span>Safe Route</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- Notification area -->
+        <!-- Notification area - macOS style -->
         <div id="notification" class="notification">
             <i class="fas fa-info-circle"></i>
             <span id="notification-text">Welcome to Vahini! Set your destination to begin.</span>
         </div>
 
-        <!-- Loading overlay -->
+        <!-- Loading overlay - macOS style -->
         <div id="loading" class="loading-overlay">
             <div class="spinner"></div>
             <p>Finding your safest route...</p>
@@ -145,6 +232,8 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="db.js"></script>
+    <script src="auth.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
