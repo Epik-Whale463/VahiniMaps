@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vahini - Safe Navigation for Hyderabad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-route"></i>
+                <h1>Vahini</h1>
+            </div>
+            <div class="header-controls">
+                <button id="panicButton" class="panic-button">
+                    <i class="fas fa-exclamation-triangle"></i> PANIC
+                </button>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <main>
+            <!-- Map container -->
+            <div id="map"></div>
+
+            <!-- Control panels -->
+            <div class="control-panel search-panel">
+                <h2>Navigation</h2>
+                <div class="input-group">
+                    <label for="source">Start</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" id="source" placeholder="Current Location" value="Current Location">
+                        <button id="useCurrentLocation" class="icon-button" title="Use current location">
+                            <i class="fas fa-crosshairs"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="destination">Destination</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-flag"></i>
+                        <input type="text" id="destination" placeholder="Enter destination">
+                    </div>
+                </div>
+                <button id="routeButton" class="primary-button">Calculate Route</button>
+                <button id="optimizeButton" class="secondary-button" disabled>Optimize for Safety</button>
+                <button id="resetButton" class="text-button">Reset</button>
+            </div>
+
+            <div class="control-panel safety-panel">
+                <h2>Safety Preferences</h2>
+                <div class="safety-options">
+                    <div class="safety-option">
+                        <input type="checkbox" id="avoidLonely" class="safety-checkbox">
+                        <label for="avoidLonely">
+                            <span class="checkbox-custom"></span>
+                            <div class="safety-label">
+                                <i class="fas fa-moon icon-lonely"></i>
+                                <span>Avoid Lonely Areas</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="safety-option">
+                        <input type="checkbox" id="avoidCrime" class="safety-checkbox">
+                        <label for="avoidCrime">
+                            <span class="checkbox-custom"></span>
+                            <div class="safety-label">
+                                <i class="fas fa-exclamation-circle icon-crime"></i>
+                                <span>Avoid High Crime Zones</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="safety-option">
+                        <input type="checkbox" id="avoidHospital" class="safety-checkbox">
+                        <label for="avoidHospital">
+                            <span class="checkbox-custom"></span>
+                            <div class="safety-label">
+                                <i class="fas fa-hospital icon-hospital"></i>
+                                <span>Avoid No Hospital Zones</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="safety-option">
+                        <input type="checkbox" id="avoidAccident" class="safety-checkbox">
+                        <label for="avoidAccident">
+                            <span class="checkbox-custom"></span>
+                            <div class="safety-label">
+                                <i class="fas fa-car-crash icon-accident"></i>
+                                <span>Avoid Accident-Prone Areas</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-color lonely-color"></span>
+                    <span>Lonely Areas</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color crime-color"></span>
+                    <span>High Crime Zones</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color hospital-color"></span>
+                    <span>No Hospital Zones</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color accident-color"></span>
+                    <span>Accident-Prone Areas</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-line normal-route"></span>
+                    <span>Normal Route</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-line safe-route"></span>
+                    <span>Safe Route</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification area -->
+        <div id="notification" class="notification">
+            <i class="fas fa-info-circle"></i>
+            <span id="notification-text">Welcome to Vahini! Set your destination to begin.</span>
+        </div>
+
+        <!-- Loading overlay -->
+        <div id="loading" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Finding your safest route...</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
